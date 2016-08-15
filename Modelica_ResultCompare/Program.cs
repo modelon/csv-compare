@@ -50,7 +50,7 @@ namespace CsvCompare
 
         /// The main entry of the application
         /// @para cmdArgs contains an array of command line parameters that are parsed using CommandLine.Dll
-        public static void Main(string[] cmdArgs)
+        public static int Main(string[] cmdArgs)
         {
             //Global catch to prevent crash
             try { Run(cmdArgs); }
@@ -63,8 +63,13 @@ namespace CsvCompare
 
                 var options = new Options();
                 Console.WriteLine(options.GetUsage());
-                Environment.Exit(2);
+                return 2;
             }
+
+            // there is a bunch of code that sets exit code
+            // as a way to signal some kind of error, propagate
+            // that code to calling processor
+            return Environment.ExitCode;
         }
 
         private static void Run(string[] cmdArgs)
