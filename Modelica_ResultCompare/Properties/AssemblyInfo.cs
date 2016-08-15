@@ -34,3 +34,6 @@ The tool returns 0 if all results were valid and no errors occurred during the v
 
 ")]
 [assembly:CLSCompliant(true)]
+
+// Give access to private classes for tests
+[assembly: InternalsVisibleTo("tests")]
