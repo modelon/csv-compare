@@ -63,9 +63,6 @@ namespace CsvCompare
 
                 var options = new Options();
                 Console.WriteLine(options.GetUsage());
-#if DEBUG
-                Console.ReadLine();
-#endif
                 Environment.Exit(2);
             }
         }
@@ -210,11 +207,6 @@ namespace CsvCompare
             }
             else
                 Console.WriteLine(options.GetUsage());
-#if DEBUG
-            //Keep window open in debug mode
-            _log.WriteLine(LogLevel.Debug, "Done.");
-            Console.ReadLine();
-#endif
         }
 
         private static void CheckFMUTree(ref MetaReport meta, Options options)
