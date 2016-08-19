@@ -433,13 +433,14 @@ namespace CsvCompare
                 //Get complete error curve as "error" only holds error points
                 Curve curveErrors = new Curve("ERRORS", new double[compare.X.Length], new double[compare.X.Length]);
                 int j = 0;
-                for (int i = 0; i < compare.X.Length - 1; i++)
+                for (int i = 0; i < compare.X.Length; i++)
                 {
                     curveErrors.X[i] = compare.X[i];
                     if (error.X.Contains(compare.X[i]))
                     {
                         curveErrors.Y[i] = (this._bShowRelativeErrors) ? error.Y[j] : 1;
-                        if (compare.X[i + 1] > compare.X[i])
+                        if (i + 1 < compare.X.Length &&
+                            compare.X[i + 1] > compare.X[i])
                         {
                             j++;
                         }
