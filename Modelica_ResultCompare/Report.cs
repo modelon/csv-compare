@@ -77,7 +77,7 @@ namespace CsvCompare
             i = 0;
             foreach (Series s in this.Series)
             {
-                if (string.IsNullOrEmpty(s.ArrayString))
+                if (string.IsNullOrEmpty(s.ArrayString) || s.Title == "ERRORS")
                     continue;
 
                 sb.AppendFormat("{{color:'#{0}', label:'{1}'}}", ColorToHexString(s.Color), s.Title);
