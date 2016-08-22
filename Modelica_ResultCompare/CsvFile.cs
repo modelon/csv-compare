@@ -364,6 +364,34 @@ namespace CsvCompare
             return rep;
         }
 
+        /// <summary>
+        /// Create complete error curve as "error" only holds error points.
+        /// </summary>
+        internal static Curve CreateErrorsCurve(Curve compare, Curve error, bool showRelativeErrors)
+        {
+            Curve curveErrors = new Curve("ERRORS", new double[compare.X.Length], new double[compare.X.Length]);
+            int j = 0;
+            for (int i = 0; i < compare.X.Length; i++)
+            {
+                curveErrors.X[i] = compare.X[i];
+                if (error.X.Contains(compare.X[i]))
+                {
+                    curveErrors.Y[i] = showRelativeErrors ? error.Y[j] : 1;
+                    if (i + 1 < compare.X.Length &&
+                        compare.X[i + 1] > compare.X[i])
+                    {
+                        j++;
+                    }
+                }
+                else
+                {
+                    curveErrors.Y[i] = 0;
+                }
+            }
+
+            return curveErrors;
+        }
+
         private void PrepareCharts(Report rep, Curve compare)//Draw result only
         {
             PrepareCharts(compare, null, null, rep, null, new KeyValuePair<string, List<double>>(compare.Name, null), false);
@@ -430,27 +458,7 @@ namespace CsvCompare
             }
             if (null != error && null != error.X && error.X.Length > 0)
             {
-                //Get complete error curve as "error" only holds error points
-                Curve curveErrors = new Curve("ERRORS", new double[compare.X.Length], new double[compare.X.Length]);
-                int j = 0;
-                for (int i = 0; i < compare.X.Length; i++)
-                {
-                    curveErrors.X[i] = compare.X[i];
-                    if (error.X.Contains(compare.X[i]))
-                    {
-                        curveErrors.Y[i] = (this._bShowRelativeErrors) ? error.Y[j] : 1;
-                        if (i + 1 < compare.X.Length &&
-                            compare.X[i + 1] > compare.X[i])
-                        {
-                            j++;
-                        }
-                    }
-                    else
-                    {
-                        curveErrors.Y[i] = 0;
-                    }
-                }
-
+                Curve curveErrors = CreateErrorsCurve(compare, error, this._bShowRelativeErrors);
                 ch.Series.Add(new Series()
                 {
                     Color = Color.Red,
@@ -462,7 +470,7 @@ namespace CsvCompare
 
                 //Calculate delta error
                 List<double> lDeltas = new List<double>();
-                j = 0;
+                int j = 0;
                 for (int i = 1; i < compare.X.Length - 1; i++)
                 {
                     if (j < error.X.Length)
