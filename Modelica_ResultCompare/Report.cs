@@ -123,10 +123,7 @@ namespace CsvCompare
             //    sb.AppendLine("            min:" + _dMin.ToString(CultureInfo.CreateSpecificCulture("en-US")) + ",");
             //    sb.AppendLine("            max:" + _dMax.ToString(CultureInfo.CreateSpecificCulture("en-US")) + ",");
             //}
-            sb.AppendLine("              // Turn off \"padding\".  This will allow data point to lie on the");
-            sb.AppendLine("              // edges of the grid.  Default padding is 1.2 and will keep all");
-            sb.AppendLine("              // points inside the bounds of the grid.");
-            sb.AppendLine("              pad: 0, tickOptions: {format: '%.5g'}");
+            sb.AppendLine("              tickOptions: {format: '%.5g'}");
             sb.AppendLine("            },");
             sb.AppendLine("            yaxis: {");
             sb.AppendFormat("              label: \"{0}\",", this.LabelY).AppendLine();
@@ -189,10 +186,7 @@ namespace CsvCompare
                 //    sb.AppendLine("            min:" + _dMin.ToString(CultureInfo.CreateSpecificCulture("en-US")) + ",");
                 //    sb.AppendLine("            max:" + _dMax.ToString(CultureInfo.CreateSpecificCulture("en-US")) + ",");
                 //}
-                sb.AppendLine("              // Turn off \"padding\".  This will allow data point to lie on the");
-                sb.AppendLine("              // edges of the grid.  Default padding is 1.2 and will keep all");
-                sb.AppendLine("              // points inside the bounds of the grid.");
-                sb.AppendLine("              pad: 0, tickOptions: {format: '%.5g'}");
+                sb.AppendLine("              tickOptions: {format: '%.5g'}");
                 sb.AppendLine("            },");
                 sb.AppendLine("            yaxis: {");
                 sb.AppendLine("              label: \"error\"");
